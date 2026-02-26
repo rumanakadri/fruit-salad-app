@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fruit Salad</title>
+    <script src="script.js" defer></script> 
+    <!-- comment: defer when written in top so that it doesn't load before the DOM is loaded, and it will execute after the HTML is parsed. -->
+</head>
+<body>
+    <section id="inputSection">
+        <form>
+            <label for="fruitInput">Enter Fruit Name - </label>
+            <input type="text" id ="fruitInput" name="fruit" placeholder="e.g. banana">
+            <input type="submit" value="submit" id="submitBtn">
+        </form>
+    </section>
+
+    <section id ="fruitSection">
+        <div></div>
+        <ul></ul>
+    </section>
+
+    <section id ="nutritionSection"> 
+        <p></p>
+    </section>
+</body>
+</html>
