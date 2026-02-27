@@ -5,7 +5,7 @@ const fruitList = document.querySelector('#fruitSection ul')
 const nutritionSection = document.querySelector('#nutritionSection p') 
 // Select the paragraph element within the nutrition section to display nutritional information about the fruits
 
-const fruitImageSection = document.querySelector('#fruitSection div') 
+const fruitImageSection = document.querySelector('#fruitSection img') 
 
 let cal = 0
 
@@ -67,22 +67,29 @@ async function fetchFruit(fruit){
 
 async function fetchFruitImage(fruit){
     try{
-        const fetchimg = await fetch(`https://pixabay.com/api/?key=54809912-4efdb76d138c16e65e597f66c&q=${fruit}+fruit&image_type=photo&pretty=true`) // Make a GET request to the Pixabay API with the fruit name as a query parameter and wait for the response
-        // https://pixabay.com/api/?key=54809912-4efdb76d138c16e65e597f66c&q=yellow+flowers&image_type=photo
-        if (fetchimg.ok) {
-            const data = await fetchimg.json() // Convert the response to JSON format and store it in the data variable
-            const img = document.createElement('img') // Create a new image element in the DOM
-            img.src = data.hits[0].webformatURL // Set the source of the image to the URL of the first image result from the API response
-            fruitImageSection.appendChild(img) // Append the image element to the fruitImageSection element to display it on the page
-        } else {
-            throw `Error: http status code = ${fetchimg.status}` // Throw an error with the HTTP status code if the response is not successful
+        if (!fruit){
+            return;
+        }
+        else {
+            const fetchimg = await fetch(`https://pixabay.com/api/?key=54809912-4efdb76d138c16e65e597f66c&q=${fruit}+fruit&image_type=photo&pretty=true`) // Make a GET request to the Pixabay API with the fruit name as a query parameter and wait for the response
+            // https://pixabay.com/api/?key=54809912-4efdb76d138c16e65e597f66c&q=yellow+flowers&image_type=photo
+            if (fetchimg.ok) {
+                const data = await fetchimg.json() // Convert the response to JSON format and store it in the data variable
+                addImage(data) // Call the addImage function with the parsed JSON data to display the fruit image in the DOM
+            } else {
+                throw `Error: http status code = ${fetchimg.status}` // Throw an error with the HTTP status code if the response is not successful
+            }
         }
     }
-        catch (e) {
-            console.log(e) // Log any errors that occur during the fetch operation to the console for debugging purposes
-        }
+    catch (e) {
+        console.log(e) // Log any errors that occur during the fetch operation to the console for debugging purposes
+    }
 }
 
+function addImage(data) {
+    fruitImageSection.src = data.hits[Math.floor(Math.random() * 10)].webformatURL // Set the source of the image to the URL of the first image result from the API response
+    fruitImageSection.hidden = false // Unhide the image element to display the fruit image in the DOM
+}
 function processResponse(resp) {
     if (resp.ok) {
         return resp.json()
@@ -90,6 +97,8 @@ function processResponse(resp) {
         throw `Error: http status code = ${resp.status}`
     }
 }
+
+
 function removeFruit(e) {
     e.target.remove()// Remove the clicked list item from the DOM when it is clicked
     cal = cal - e.target.value // Subtract the calories of the removed fruit from the total calorie count using the value property of the list item
@@ -102,7 +111,3 @@ function removeFruit(e) {
 
 
 
-
-// Add image
-// update calories when removing fruit from list
-// 
