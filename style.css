@@ -36,22 +36,6 @@ header h1 {
   letter-spacing: 1px;
 }
 
-/* ===== NAVIGATION ===== */
-nav {
-  margin-top: 1rem;
-}
-
-nav a {
-  color: white;
-  text-decoration: none;
-  margin: 0 15px;
-  font-weight: 500;
-  transition: 0.3s;
-}
-
-nav a:hover {
-  color: #cceee6;
-}
 
 /* ===== SECTION ===== */
 section {
